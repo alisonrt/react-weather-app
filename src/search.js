@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 const apiKey = "20f80f60d74acf5419e80528f290a5b9";
 
-export default function search() {
+export default function Search() {
   let [searchInput, setSearchInput] = useState("");
   let [searchResults, setSearchResults] = useState([]);
 
@@ -45,7 +45,7 @@ export default function search() {
     <div>
       <form>
         <div className="row">
-          <div className="col-9">
+          <div className="col-6">
             <input
               className="form-control"
               type="Search"
@@ -61,6 +61,13 @@ export default function search() {
               onClick={searchCity}
             />
           </div>
+          <div className="col-2">
+            <input
+            className="btn btn-secondary"
+            value="Current Location"
+            id="current-location-button"
+            />
+          </div>
         </div>
       </form>
       <div className="weatherStats">
@@ -74,6 +81,16 @@ export default function search() {
             </ul>
           );
         })}
+           <div class="col-med-6">
+                        <ul>
+                            <li>
+                            Humidity: <span id="humidity"></span>%
+                            </li>
+                            <li>
+                            Wind: <span id="windspeed"></span> k/mh
+                            </li>
+                        </ul>
+              </div>
       </div>
     </div>
   );
