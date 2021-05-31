@@ -7,6 +7,7 @@ export default function Search() {
   let [searchResults, setSearchResults] = useState([]);
 
   const displayTemp = (response) => {
+    console.log(`response`, response);
     const stats = [
       {
         name: "Temperature:",
@@ -15,21 +16,21 @@ export default function Search() {
       {
         name: "Description:",
         value: `${response.data.weather[0].description}`,
-        icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-      },
-      { 
-        name: "Humidity:", 
-        value: `${response.data.main.humidity}%`, 
+        icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       },
       {
-        name: "Wind:", 
-        value: `${response.data.wind.speed}mph`, 
-      }
+        name: "Humidity:",
+        value: `${response.data.main.humidity}%`,
+      },
+      {
+        name: "Wind:",
+        value: `${response.data.wind.speed}mph`,
+      },
     ];
 
     setSearchResults(stats);
-  }
-  
+  };
+
   const handleSearchChange = (event) => {
     event.preventDefault();
     setSearchInput(event.target.value);
@@ -39,7 +40,7 @@ export default function Search() {
     event.preventDefault();
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${searchInput}&appid=${apiKey}&units=metric`;
     axios.get(url).then(displayTemp);
-  }
+  };
 
   return (
     <div>
@@ -63,9 +64,9 @@ export default function Search() {
           </div>
           <div className="col-2">
             <input
-            className="btn btn-secondary"
-            value="Current Location"
-            id="current-location-button"
+              className="btn btn-secondary"
+              value="Current Location"
+              id="current-location-button"
             />
           </div>
         </div>
@@ -75,22 +76,24 @@ export default function Search() {
           return (
             <ul key={`${stat.name}`}>
               <li>
-                {stat.icon ? <img src={stat.icon} alt={"weather icon"} /> : null}
+                {stat.icon ? (
+                  <img src={stat.icon} alt={"weather icon"} />
+                ) : null}
                 {stat.name} {stat.value}
               </li>
             </ul>
           );
         })}
-           <div class="col-med-6">
-                        <ul>
-                            <li>
-                            Humidity: <span id="humidity"></span>%
-                            </li>
-                            <li>
-                            Wind: <span id="windspeed"></span> k/mh
-                            </li>
-                        </ul>
-              </div>
+        <div class="col-med-6">
+          <ul>
+            <li>
+              Humidity: <span id="humidity"></span>%
+            </li>
+            <li>
+              Wind: <span id="windspeed"></span> k/mh
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
